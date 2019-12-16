@@ -15,4 +15,4 @@ res = pm.request('GET', url)
 
 soup = BeautifulSoup(res.data, 'html.parser')
 
-print(soup.select('#search_results.selectable friend_block_v2 persona in-game'))
+print(soup.find_all('div', class_='selectable friend_block_v2 persona in-game'))
