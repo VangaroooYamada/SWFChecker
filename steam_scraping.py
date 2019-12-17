@@ -3,8 +3,7 @@ import certifi
 from bs4 import BeautifulSoup
 
 
-# url = 'https://steamcommunity.com/id/vangarooo/friends/'
-url = 'https://steamcommunity.com/profiles/76561198017061494/friends/'
+url = 'https://steamcommunity.com/id/vangarooo/friends/'
 
 pm = urllib3.PoolManager(
     cert_reqs='CERT_REQUIRED',
