@@ -3,16 +3,18 @@ import certifi
 from bs4 import BeautifulSoup
 
 
-url = 'https://steamcommunity.com/id/vangarooo/'
+# url = 'https://steamcommunity.com/id/vangarooo/friends/'
+url = 'https://steamcommunity.com/profiles/76561198017061494/friends/'
 
 pm = urllib3.PoolManager(
     cert_reqs='CERT_REQUIRED',
     ca_certs=certifi.where()
 )
 res = pm.request('GET', url)
-
 # print(res.data)
-
 soup = BeautifulSoup(res.data, 'html.parser')
 
-print(soup.find_all('div', class_='selectable friend_block_v2 persona in-game'))
+friends_list = list(soup.find_all('a', class_='selectable_overlay'))
+
+for f in friends_list:
+    print(f.attrs['href'])
