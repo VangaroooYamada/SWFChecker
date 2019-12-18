@@ -8,11 +8,12 @@ pm = urllib3.PoolManager(
     cert_reqs='CERT_REQUIRED',
     ca_certs=certifi.where()
 )
+id_cmp = re.compile(r'(id|profile)\/(.+)\/?')
 
 
 class SteamUser:
     def __init__(self, url):
-        self.name = re.search(r'(id|profile)\/(.+)\/?', url).groups(2)
+        self.name = id_cmp.search(url).groups(2)
         self.res = pm.request('GET', url + '/friends/')
         self.soup = BeautifulSoup(self.res.data, 'html.parser')
         self.fr_list = list(self.soup.find_all('a', class_='selectable_overlay'))
