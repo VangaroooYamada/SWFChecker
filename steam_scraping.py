@@ -11,6 +11,10 @@ pm = urllib3.PoolManager(
 id_cmp = re.compile(r'(id|profiles)\/(.+)\/?')
 
 
+def check_url(url):
+    return pm.request('GET', url + '/friends/').status == 200
+
+
 class SteamUser:
     def __init__(self, url):
         self.name = id_cmp.search(url).groups()[1]
@@ -21,7 +25,7 @@ class SteamUser:
             in self.soup.find_all('a', class_='selectable_overlay')]
 
     def show_friends(self):
-        print(f'My name is {self.name}')
+        print(f'My name is {self.name}({len(self.fr_list)})')
         for n in self.fr_list:
             print(n)
 
@@ -33,5 +37,8 @@ if __name__ == '__main__':
     # Test ****************
     url = input('Input steamURL: ')
 
-    p1 = SteamUser(url)
-    p1.show_friends()
+    if not check_url(url):
+        print('Invalid URL')
+    else:
+        p1 = SteamUser(url)
+        p1.show_friends()
