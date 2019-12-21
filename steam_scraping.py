@@ -39,6 +39,7 @@ if __name__ == '__main__':
 
     if not check_url(url):
         print('Invalid URL')
-    else:
-        p1 = SteamUser(url)
-        p1.show_friends()
+        quit(1)
+
+    p1 = SteamUser(url)
+    p1.show_friends()
