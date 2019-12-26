@@ -15,7 +15,16 @@ def check_url(url):
     return pm.request('GET', url + '/friends/').status == 200
 
 
+class FriendsList:
+    pass
+
+
 class SteamUser:
+    def __init__(self, url):
+        self.name = id_cmp.search(url).groups()[1]
+
+
+class UserContainer:
     def __init__(self, url):
         self.name = id_cmp.search(url).groups()[1]
         self.res = pm.request('GET', url + '/friends/')
@@ -41,5 +50,5 @@ if __name__ == '__main__':
         print('Invalid URL')
         quit(1)
 
-    p1 = SteamUser(url)
+    p1 = UserContainer(url)
     p1.show_friends()
