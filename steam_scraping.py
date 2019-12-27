@@ -54,13 +54,17 @@ if __name__ == '__main__':
     # Test ****************
     uc = UserContainer()
 
-    url = input('Input steamURL: ')
+    while True:
+        url = input('Input Steam URL: ')
+        if not url:
+            break
 
-    if not check_url(url):
-        print('Invalid URL')
-        quit(1)
+        if not check_url(url):
+            print('Invalid URL!')
+            continue
 
-    uc.append(SteamUser(url))
+        uc.append(SteamUser(url))
+        print(f'{uc.__len__()} Users contained.')
 
     uc.view_users()
 
