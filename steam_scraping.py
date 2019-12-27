@@ -25,7 +25,7 @@ class FriendsList(list):
 
     def add_friends(self):
         for fr in self.soup.find_all('a', class_='selectable_overlay'):
-            super().append(id_cmp.search(fr.attrs['href']).groups()[1])
+            self.append(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
 class SteamUser:
@@ -38,14 +38,31 @@ class UserContainer(deque):
     def __init__(self):
         super().__init__(maxlen=4)
 
+    def add_user(self, user: SteamUser):
+        self.append(user)
+
+    def view_users(self):
+        for i, u in enumerate(self):
+            print(f'PLAYER {i+1}')
+            print(f'USER NAME: {u.name}')
+            print(f'FRIENDS: {len(u.fr_list)}')
+            print(u.fr_list)
+            print('*******************************')
+
 
 if __name__ == '__main__':
     # Test ****************
+    uc = UserContainer()
+
     url = input('Input steamURL: ')
 
     if not check_url(url):
         print('Invalid URL')
         quit(1)
+
+    uc.append(SteamUser(url))
+
+    uc.view_users()
 
     # p1 = SteamUser(url)
     # print(p1.fr_list)
