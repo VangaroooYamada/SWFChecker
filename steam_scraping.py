@@ -2,6 +2,7 @@ import re
 import urllib3
 import certifi
 from bs4 import BeautifulSoup
+from collections import deque
 
 
 pm = urllib3.PoolManager(
@@ -15,31 +16,26 @@ def check_url(url):
     return pm.request('GET', url + '/friends/').status == 200
 
 
-class FriendsList:
-    pass
+class FriendsList(list):
+    def __init__(self, url):
+        super().__init__()
+        self.res = pm.request('GET', url + '/friends/')
+        self.soup = BeautifulSoup(self.res.data, 'html.parser')
+
+    def add_friends(self):
+        for fr in self.soup.find_all('a', class_='selectable_overlay'):
+            super().append(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
 class SteamUser:
     def __init__(self, url):
         self.name = id_cmp.search(url).groups()[1]
+        self.fr_list = FriendsList(url)
 
 
-class UserContainer:
-    def __init__(self, url):
-        self.name = id_cmp.search(url).groups()[1]
-        self.res = pm.request('GET', url + '/friends/')
-        self.soup = BeautifulSoup(self.res.data, 'html.parser')
-        self.fr_list = [
-            id_cmp.search(fr.attrs['href']).groups()[1] for fr
-            in self.soup.find_all('a', class_='selectable_overlay')]
-
-    def show_friends(self):
-        print(f'My name is {self.name}({len(self.fr_list)})')
-        for n in self.fr_list:
-            print(n)
-
-    def check_friend(self):
-        pass
+class UserContainer(deque):
+    def __init__(self):
+        super().__init__(maxlen=4)
 
 
 if __name__ == '__main__':
@@ -50,5 +46,4 @@ if __name__ == '__main__':
         print('Invalid URL')
         quit(1)
 
-    p1 = UserContainer(url)
-    p1.show_friends()
+    p1 = SteamUser(url)
