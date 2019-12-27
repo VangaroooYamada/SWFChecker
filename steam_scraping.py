@@ -16,7 +16,7 @@ def check_url(url):
     return pm.request('GET', url + '/friends/').status == 200
 
 
-class FriendsList(list):
+class FriendsList(set):
     def __init__(self, url):
         super().__init__()
         self.res = pm.request('GET', url + '/friends/')
@@ -25,7 +25,7 @@ class FriendsList(list):
 
     def add_friends(self):
         for fr in self.soup.find_all('a', class_='selectable_overlay'):
-            self.append(id_cmp.search(fr.attrs['href']).groups()[1])
+            self.add(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
 class SteamUser:
@@ -46,7 +46,7 @@ class UserContainer(deque):
             print(f'PLAYER {i+1}')
             print(f'USER NAME: {u.name}')
             print(f'FRIENDS: {len(u.fr_list)}')
-            print(u.fr_list)
+            print(list(u.fr_list))
             print('*******************************')
 
 
