@@ -21,6 +21,7 @@ class FriendsList(list):
         super().__init__()
         self.res = pm.request('GET', url + '/friends/')
         self.soup = BeautifulSoup(self.res.data, 'html.parser')
+        self.add_friends()
 
     def add_friends(self):
         for fr in self.soup.find_all('a', class_='selectable_overlay'):
@@ -46,4 +47,5 @@ if __name__ == '__main__':
         print('Invalid URL')
         quit(1)
 
-    p1 = SteamUser(url)
+    # p1 = SteamUser(url)
+    # print(p1.fr_list)
