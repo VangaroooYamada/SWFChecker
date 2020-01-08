@@ -49,6 +49,12 @@ class UserContainer(deque):
             print(list(u.fr_list))
             print('*******************************')
 
+    def check_friends(self):
+        pass
+        # Check Users' friendship
+        # (using set ?)
+        # If exists,
+
 
 if __name__ == '__main__':
     # Test ****************
