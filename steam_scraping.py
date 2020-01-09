@@ -28,6 +28,10 @@ class FriendsList(set):
             self.add(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
+class FriendshipList(list):     # List of Users' friendships
+    pass
+
+
 class SteamUser:
     def __init__(self, url):
         self.name = id_cmp.search(url).groups()[1]
@@ -37,6 +41,7 @@ class SteamUser:
 class UserContainer(deque):
     def __init__(self):
         super().__init__(maxlen=4)
+        self.friendship = FriendshipList()
 
     def add_user(self, user: SteamUser):
         self.append(user)
