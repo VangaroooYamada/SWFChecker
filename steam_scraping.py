@@ -29,7 +29,9 @@ class FriendsList(set):
 
 
 class FriendshipList(list):     # List of Users' friendships
-    pass
+    def append(self, object):
+        super().append(object)
+        # self = list(set(self))  # self(list) is unhashable
 
 
 class SteamUser:
@@ -57,6 +59,7 @@ class UserContainer(deque):
     def check_friends(self):
         pass
         # Check Users' friendship
+        # Returns Friendship List ?
         # (using set ?)
         # If exists,
 
