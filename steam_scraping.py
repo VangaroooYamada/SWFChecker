@@ -43,7 +43,7 @@ class SteamUser:
 class UserContainer(deque):
     def __init__(self):
         super().__init__(maxlen=4)
-        self.friendship = FriendshipList()
+        self.friendship = FriendshipsList()
 
     def add_user(self, user: SteamUser):
         self.append(user)
