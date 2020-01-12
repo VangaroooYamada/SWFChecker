@@ -28,7 +28,7 @@ class FriendsList(set):
             self.add(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
-class Friendship(set):
+class Friendship(list):
     pass
 
 
