@@ -28,10 +28,13 @@ class FriendsList(set):
             self.add(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
-class FriendshipList(list):     # List of Users' friendships
-    def append(self, object):
-        super().append(object)
-        # self = list(set(self))  # self(list) is unhashable
+class Friendship(set):
+    pass
+
+
+class FriendshipsList(list):     # List of friendships in Container
+    def append(self, friendship):
+        super().append(friendship)
 
 
 class SteamUser:
