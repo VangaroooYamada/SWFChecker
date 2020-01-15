@@ -46,10 +46,11 @@ class SteamUser:
 class UserContainer(deque):
     def __init__(self):
         super().__init__(maxlen=4)
-        self.friendship = FriendshipsList()
+        self.fs_list = FriendshipsList()
 
     def add_user(self, user: SteamUser):
         self.append(user)
+        self.check_friends()
 
     def view_users(self):
         for i, u in enumerate(self):
@@ -62,9 +63,7 @@ class UserContainer(deque):
     def check_friends(self):
         pass
         # Check Users' friendship
-        # Returns Friendship List ?
-        # (using set ?)
-        # If exists,
+        # Returns Friendship List
 
 
 if __name__ == '__main__':
@@ -80,7 +79,7 @@ if __name__ == '__main__':
             print('Invalid URL!')
             continue
 
-        uc.append(SteamUser(url))
+        uc.add_user(SteamUser(url))
         print(f'{uc.__len__()} Users contained.')
 
     uc.view_users()
