@@ -33,10 +33,12 @@ class Friendship(list):
 
 
 class FriendshipsList(list):     # List of friendships in Container
+    '''
+    Delete Duplicates
+    Update Friendship
+    '''
     def append(self, friendship):
         super().append(friendship)
-        # Delete Duplicates
-        # Update Friendship
 
 
 class SteamUser:
@@ -63,6 +65,10 @@ class UserContainer(deque):
             print('*******************************')
 
     def check_friends(self, user):
+        '''
+        Check Users' friendship
+        Returns Friendship List
+        '''
         for friendship in self.fs_list:
             pass
 
@@ -72,8 +78,6 @@ class UserContainer(deque):
 
             if other in user.fr_list:
                 user.add_friendship(Friendship(user, other))
-        # Check Users' friendship
-        # Returns Friendship List
 
 
 if __name__ == '__main__':
@@ -93,6 +97,3 @@ if __name__ == '__main__':
         print(f'{uc.__len__()} Users contained.')
 
     uc.view_users()
-
-    # p1 = SteamUser(url)
-    # print(p1.fr_list)
