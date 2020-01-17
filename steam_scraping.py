@@ -41,6 +41,12 @@ class FriendshipsList(list):     # List of friendships in Container
     def append(self, friendship):
         super().append(friendship)
 
+    def del_dupli(self):
+        pass
+
+    def update(self):
+        pass
+
 
 class SteamUser:
     def __init__(self, url):
