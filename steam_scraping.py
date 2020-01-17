@@ -29,7 +29,8 @@ class FriendsList(set):
 
 
 class Friendship(list):
-    pass
+    def __init__(self, users):  # tmp
+        super().__init__(users)
 
 
 class FriendshipsList(list):     # List of friendships in Container
