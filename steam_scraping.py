@@ -39,13 +39,20 @@ class FriendshipsList(list):     # List of friendships in Container
     Update Friendship
     '''
     def append(self, friendship):
+        self.update(friendship)
         super().append(friendship)
 
-    def del_dupli(self):
-        pass
+    def update(self, friendship):
+        for fs in self:
+            if set(friendship) == set(fs):
+                return False
 
-    def update(self):
-        pass
+    def check_contain(self, fs1, fs2):
+        if set(fs1) <= set(fs2):
+            return False
+
+        if set(fs1) > set(fs2):
+            pass
 
 
 class SteamUser:
