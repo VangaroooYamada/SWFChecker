@@ -1,6 +1,7 @@
 import re
 import urllib3
 import certifi
+import networkx as nx
 from bs4 import BeautifulSoup
 from collections import deque
 
@@ -28,26 +29,15 @@ class FriendsList(set):
             self.add(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
-class FriendshipsList(list):     # List of friendships in Container
+class FriendshipsGraph(nx.Graph):     # List of friendships in Container
     '''
     Delete Duplicates
     Update Friendship
     '''
-    def append(self, friendship):
-        self.update(friendship)
-        super().append(friendship)
+    def add_user(user):
+        super().add_node(user)
 
-    def update(self, friendship):
-        for fs in self:
-            if set(friendship) == set(fs):
-                return False
-
-    def check_contain(self, fs1, fs2):
-        if set(fs1) <= set(fs2):
-            return False
-
-        if set(fs1) > set(fs2):
-            pass
+    pass
 
 
 class SteamUser:
@@ -59,7 +49,7 @@ class SteamUser:
 class UserContainer(deque):
     def __init__(self):
         super().__init__(maxlen=4)
-        self.fs_list = FriendshipsList()
+        self.fs_list = FriendshipsGraph()
 
     def add_user(self, user: SteamUser):
         self.append(user)
@@ -86,7 +76,7 @@ class UserContainer(deque):
                 continue
 
             if other in user.fr_list:
-                user.add_friendship(Friendship(user, other))
+                pass
 
 
 if __name__ == '__main__':
