@@ -28,11 +28,6 @@ class FriendsList(set):
             self.add(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
-class Friendship(list):
-    def __init__(self, users):  # tmp
-        super().__init__(users)
-
-
 class FriendshipsList(list):     # List of friendships in Container
     '''
     Delete Duplicates
