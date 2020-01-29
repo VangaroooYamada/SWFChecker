@@ -29,31 +29,15 @@ class FriendsList(set):
             self.add(id_cmp.search(fr.attrs['href']).groups()[1])
 
 
-class FriendshipsGraph(nx.Graph):     # List of friendships in Container
-    '''
-    Delete Duplicates
-    Update Friendship
-    '''
-    def add_user(user):
-        super().add_node(user)
-
-    pass
-
-
 class SteamUser:
     def __init__(self, url):
         self.name = id_cmp.search(url).groups()[1]
         self.fr_list = FriendsList(url)
 
 
-class UserContainer(deque):
-    def __init__(self):
-        super().__init__(maxlen=4)
-        self.fs_list = FriendshipsGraph()
-
+class UserContainer(nx.Graph):
     def add_user(self, user: SteamUser):
-        self.append(user)
-        self.check_friends(user)
+        pass
 
     def view_users(self):
         for i, u in enumerate(self):
@@ -68,15 +52,7 @@ class UserContainer(deque):
         Check Users' friendship
         Returns Friendship List
         '''
-        for friendship in self.fs_list:
-            pass
-
-        for other in self:
-            if other == user:
-                continue
-
-            if other in user.fr_list:
-                pass
+        pass
 
 
 if __name__ == '__main__':
