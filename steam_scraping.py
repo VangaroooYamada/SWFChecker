@@ -30,7 +30,11 @@ class FriendsList(set):
 
 class SteamUser:
     def __init__(self, url):
-        self.name = id_cmp.search(url).groups()[1]
+        self.res = pm.request('GET', url)
+        self.soup = BeautifulSoup(self.res.data, 'html.parser')
+
+        self.name = self.soup.find('span', class_='actual_persona_name').string
+        self.id = id_cmp.search(url).groups()[1]
         self.fr_list = FriendsList(url)
 
 
@@ -40,7 +44,7 @@ class UserContainer(nx.Graph):
         for u in self:
             if u == user:
                 continue
-            if u.name in user.fr_list:
+            if u.id in user.fr_list:
                 self.add_edge(user, u)
         self.view_friends()
 
@@ -49,7 +53,7 @@ class UserContainer(nx.Graph):
             print(f'PLAYER {i+1}')
             print(f'USER NAME: {u.name}')
             print(f'FRIENDS: {len(u.fr_list)}')
-            print(list(u.fr_list))
+            # print(list(u.fr_list))
             print('*******************************')
 
     def view_friends(self):
