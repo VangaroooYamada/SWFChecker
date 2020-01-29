@@ -37,7 +37,13 @@ class SteamUser:
 
 class UserContainer(nx.Graph):
     def add_user(self, user: SteamUser):
-        pass
+        self.add_node(user)
+        for u in self:
+            if u == user:
+                continue
+            if u.name in user.fr_list:
+                self.add_edge(user, u)
+        self.view_friends()
 
     def view_users(self):
         for i, u in enumerate(self):
