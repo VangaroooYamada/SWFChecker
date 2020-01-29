@@ -47,12 +47,13 @@ class UserContainer(nx.Graph):
             print(list(u.fr_list))
             print('*******************************')
 
-    def check_friends(self, user):
+    def view_friends(self):
         '''
         Check Users' friendship
         Returns Friendship List
         '''
-        pass
+        for e in self.edges:
+            print(f'{e[0].name} - {e[1].name}')
 
 
 if __name__ == '__main__':
