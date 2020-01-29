@@ -3,7 +3,6 @@ import urllib3
 import certifi
 import networkx as nx
 from bs4 import BeautifulSoup
-from collections import deque
 
 
 pm = urllib3.PoolManager(
