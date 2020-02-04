@@ -46,7 +46,7 @@ class UserContainer(nx.Graph):
                 continue
             if u.id in user.fr_list:
                 self.add_edge(user, u)
-        self.view_friends()
+        print(self.get_friends())
 
     def view_users(self):
         for i, u in enumerate(self):
@@ -63,6 +63,23 @@ class UserContainer(nx.Graph):
         '''
         for e in self.edges:
             print(f'{e[0].name} - {e[1].name}')
+
+    def get_friends(self):
+        if self.number_of_edges() == 5 or self.number_of_edges() == 6:    # All Party
+            return [[n.name for n in self.nodes]]
+
+        if self.number_of_edges() == 4:
+            if 3 not in [deg for node, deg in self.degree()]:
+                return [[e[0].name, e[1].name] for e in self.edges]
+
+            return [[n.name for n in self.nodes if not self.degree[n] == 2],
+                    [n.name for n in self.nodes if not self.degree[n] == 1]]
+
+        if self.number_of_edges() == 3:
+            if 0 not in [deg for node, deg in self.degree()]:
+                return [[n.name for n in self.nodes if not self.degree[n] == 0]]
+
+        return [[e[0].name, e[1].name] for e in self.edges]
 
 
 if __name__ == '__main__':
