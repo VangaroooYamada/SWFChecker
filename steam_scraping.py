@@ -46,7 +46,6 @@ class UserContainer(nx.Graph):
                 continue
             if u.id in user.fr_list:
                 self.add_edge(user, u)
-        print(self.get_friends())
 
     def view_users(self):
         for i, u in enumerate(self):
@@ -96,6 +95,7 @@ if __name__ == '__main__':
             continue
 
         uc.add_user(SteamUser(url))
+        print(uc.get_friends())
         print(f'{uc.__len__()} Users contained.')
 
     uc.view_users()
